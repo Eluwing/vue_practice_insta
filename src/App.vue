@@ -45,6 +45,7 @@ export default {
         this.posts = [...this.posts,result.data]
         // this.posts.push(result.data)
         this.moreButtonCount++
+        // サーバーにmore2以上のデータが用意されてないため、値初期化
         if(this.moreButtonCount == 2){
           this.moreButtonCount = 0
         }
