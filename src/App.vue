@@ -11,6 +11,8 @@
 
   <Container :posts="posts"/>
 
+  <button @click="more">More</button>
+
   <div class="footer">
     <ul class="footer-button-plus">
       <input type="file" id="file" class="inputfile" />
@@ -20,6 +22,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Container from './components/Container.vue';
 import Posts from '@/assets/Posts';
 
@@ -30,7 +33,22 @@ export default {
   },
   data(){
     return{
-      posts: Posts
+      posts: Posts,
+      moreButtonCount: 0,
+    }
+  },
+  methods:{
+    more(){
+      axios.get(`https://codingapple1.github.io/vue/more${this.moreButtonCount}.json`)
+      .then((result) => {
+        //get成功し実行するコード
+        this.posts = [...this.posts,result.data]
+        // this.posts.push(result.data)
+        this.moreButtonCount++
+        if(this.moreButtonCount == 2){
+          this.moreButtonCount = 0
+        }
+      })
     }
   }
 }
