@@ -9,9 +9,10 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="posts"/>
+  <Container :posts="posts" :tabState="tabState"/>
 
   <button @click="more">More</button>
+  <button v-for="(item,i) in tabLists" :key="i" @click="onTabClick(i)">{{ item }}</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -35,7 +36,12 @@ export default {
     return{
       posts: Posts,
       moreButtonCount: 0,
+      tabState: 0,
+      tabLists: [],
     }
+  },
+  mounted(){
+    this.tabLists = ['Post','Fliter','Write']
   },
   methods:{
     more(){
@@ -50,6 +56,9 @@ export default {
           this.moreButtonCount = 0
         }
       })
+    },
+    onTabClick(clickedState){
+      this.tabState = clickedState
     }
   }
 }
