@@ -9,14 +9,14 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="posts" :tabState="tabState"/>
+  <Container :posts="posts" :tabState="tabState" :uploadFileUrl="uploadFileUrl"/>
 
   <button @click="more">More</button>
   <button v-for="(item,i) in tabLists" :key="i" @click="onTabClick(i)">{{ item }}</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
@@ -38,6 +38,7 @@ export default {
       moreButtonCount: 0,
       tabState: 0,
       tabLists: [],
+      uploadFileUrl: '',
     }
   },
   mounted(){
@@ -53,13 +54,20 @@ export default {
         this.moreButtonCount++
         // サーバーにmore2以上のデータが用意されてないため、値初期化
         if(this.moreButtonCount == 2){
-          this.moreButtonCount = 0
+          this.moreButtonCount = 0;
         }
       })
     },
     onTabClick(clickedState){
-      this.tabState = clickedState
-    }
+      this.tabState = clickedState;
+    },
+    upload(e){
+      let file = e.target.files;
+      this.uploadFileUrl = URL.createObjectURL(file[0]);
+      console.log(file);
+      this.onTabClick(1);
+      
+    },
   }
 }
 </script>
