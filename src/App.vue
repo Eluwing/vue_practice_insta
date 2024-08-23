@@ -4,7 +4,8 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="tabState != 2">Next</li>
+      <li v-if="tabState == 2">Post</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
