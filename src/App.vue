@@ -76,11 +76,9 @@ export default {
     upload(e) {
       let file = e.target.files;
       this.uploadFileUrl = URL.createObjectURL(file[0]);
-      console.log(file);
       this.onTabClick(1);
     },
     handleContent(text) {
-      console.log(text);
       this.uploadContent = text;
     },
     publish() {
@@ -94,7 +92,6 @@ export default {
         content: `${this.uploadContent}`,
         filter: "perpetua",
       };
-      console.log(inputObj);
       this.posts.unshift(inputObj);
       this.tabState = 0;
     },
