@@ -19,7 +19,7 @@
   <div v-else-if="tabState == 2" >
     <div class="upload-image" :style="uploadFlieStyle"></div>
     <div class="write">
-      <textarea class="write-box">write!</textarea>
+      <textarea class="write-box" v-model="content" @input="handleContent"></textarea>
     </div>
   </div>
 </template>
@@ -42,6 +42,16 @@ export default {
         backgroundImage: `url(${this.uploadFileUrl})`,
       };
     }
+  },
+  data() {
+    return {
+      content: '',
+    }
+  },
+  methods: {
+    handleContent(){
+      this.$emit('changeContent',this.content);
+    },
   }
 };
 </script>
