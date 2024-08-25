@@ -1,76 +1,105 @@
 <template>
-<div class="header">
+  <div class="header">
     <ul class="header-button-left">
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="tabState != 2">Next</li>
-      <li v-if="tabState == 2">Post</li>
+      <li v-if="tabState != 2" @click="tabState++">Next</li>
+      <li v-if="tabState == 2" @click="publish">Post</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="posts" :tabState="tabState" :uploadFileUrl="uploadFileUrl"/>
+  <Container
+    :posts="posts"
+    :tabState="tabState"
+    :uploadFileUrl="uploadFileUrl"
+    @changeContent="handleContent"
+  />
 
   <button @click="more">More</button>
-  <button v-for="(item,i) in tabLists" :key="i" @click="onTabClick(i)">{{ item }}</button>
+  <button v-for="(item, i) in tabLists" :key="i" @click="onTabClick(i)">
+    {{ item }}
+  </button>
 
   <div class="footer">
     <ul class="footer-button-plus">
       <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
- </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Container from './components/Container.vue';
-import Posts from '@/assets/Posts';
+import axios from "axios";
+import Container from "./components/Container.vue";
+import Posts from "@/assets/Posts";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Container
+    Container,
   },
-  data(){
-    return{
+  data() {
+    return {
       posts: Posts,
       moreButtonCount: 0,
       tabState: 0,
       tabLists: [],
-      uploadFileUrl: '',
-    }
+      uploadFileUrl: "",
+      uploadContent: "",
+    };
   },
-  mounted(){
-    this.tabLists = ['Post','Fliter','Write']
+  mounted() {
+    this.tabLists = ["Post", "Fliter", "Write"];
   },
-  methods:{
-    more(){
-      axios.get(`https://codingapple1.github.io/vue/more${this.moreButtonCount}.json`)
-      .then((result) => {
-        //get成功し実行するコード
-        this.posts = [...this.posts,result.data]
-        // this.posts.push(result.data)
-        this.moreButtonCount++
-        // サーバーにmore2以上のデータが用意されてないため、値初期化
-        if(this.moreButtonCount == 2){
-          this.moreButtonCount = 0;
-        }
-      })
+  methods: {
+    more() {
+      axios
+        .get(
+          `https://codingapple1.github.io/vue/more${this.moreButtonCount}.json`
+        )
+        .then((result) => {
+          //get成功し実行するコード
+          this.posts = [...this.posts, result.data];
+          // this.posts.push(result.data)
+          this.moreButtonCount++;
+          // サーバーにmore2以上のデータが用意されてないため、値初期化
+          if (this.moreButtonCount == 2) {
+            this.moreButtonCount = 0;
+          }
+        });
     },
-    onTabClick(clickedState){
+    onTabClick(clickedState) {
       this.tabState = clickedState;
     },
-    upload(e){
+    upload(e) {
       let file = e.target.files;
       this.uploadFileUrl = URL.createObjectURL(file[0]);
       console.log(file);
       this.onTabClick(1);
-      
     },
-  }
-}
+    handleContent(text) {
+      console.log(text);
+      this.uploadContent = text;
+    },
+    publish() {
+      var inputObj = {
+        name: "Kim Hyun",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: `${this.uploadFileUrl}`,
+        likes: 0,
+        date: new Date().toLocaleDateString("ja-JP"),
+        liked: false,
+        content: `${this.uploadContent}`,
+        filter: "perpetua",
+      };
+      console.log(inputObj);
+      this.posts.unshift(inputObj);
+      this.tabState = 0;
+    },
+  },
+};
 </script>
 
 <style>
