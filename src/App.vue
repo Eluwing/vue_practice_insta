@@ -48,10 +48,14 @@ export default {
       tabLists: [],
       uploadFileUrl: "",
       uploadContent: "",
+      uploadFilter: "",
     };
   },
   mounted() {
     this.tabLists = ["Post", "Fliter", "Write"];
+    this.emitter.on('clickedFilter', (name)=>{
+      this.uploadFilter = name;
+    });
   },
   methods: {
     more() {
@@ -90,7 +94,7 @@ export default {
         date: new Date().toLocaleDateString("ja-JP"),
         liked: false,
         content: `${this.uploadContent}`,
-        filter: "perpetua",
+        filter: `${this.uploadFilter}`,
       };
       this.posts.unshift(inputObj);
       this.tabState = 0;

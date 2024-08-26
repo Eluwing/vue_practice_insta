@@ -1,14 +1,20 @@
 <template>
   <div :class="`${ filter } filter-item`" :style="`background-image:url(${ uploadFileUrl })`">
+    <!-- 親が子コンポーネントのデータを使いたいならslot props利用 -->
     <!-- props代わりに<slot>を使ってデータバインディング可能 -->
     <slot></slot>
-    <!-- 親が子コンポーネントのデータを使いたいならslot props利用 -->
+    <button @click="fire">ボタン</button>
   </div> 
 </template>
 
 <script>
 export default {
   name: 'FilterBoxItems',
+  methods: {
+    fire(){
+      this.emitter.emit('clickedFilter', this.filter)
+    }
+  },
   props: {
     uploadFileUrl: String,
     filter: String,
