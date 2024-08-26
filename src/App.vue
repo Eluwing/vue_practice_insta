@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="tabState = 0">Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="tabState != 2" @click="tabState++">Next</li>
+      <li v-if="tabState != 0 && tabState != 2" @click="tabState++">Next</li>
       <li v-if="tabState == 2" @click="publish">Post</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
