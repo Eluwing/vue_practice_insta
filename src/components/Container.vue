@@ -7,7 +7,9 @@
   <div v-else-if="tabState == 1">
     <div class="upload-image" :style="uploadFlieStyle"></div>
     <div class="filters">
-      <FilterBox v-for="(item) in filters" :key="item" :uploadFileUrl="uploadFileUrl" :filter="item"></FilterBox>
+      <FilterBox v-for="(item) in filters" :key="item" :uploadFileUrl="uploadFileUrl" :filter="item">
+        {{item}}
+      </FilterBox>
     </div>
   </div>
 

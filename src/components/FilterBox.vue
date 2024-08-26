@@ -1,5 +1,9 @@
 <template>
-  <div :class="`${ filter } filter-item`" :style="`background-image:url(${ uploadFileUrl })`"></div> 
+  <div :class="`${ filter } filter-item`" :style="`background-image:url(${ uploadFileUrl })`">
+    <!-- props代わりに<slot>を使ってデータバインディング可能 -->
+    <slot></slot>
+    <!-- 親が子コンポーネントのデータを使いたいならslot props利用 -->
+  </div> 
 </template>
 
 <script>
