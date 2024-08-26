@@ -10,6 +10,9 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+  <h3>Hello {{ $store.state.name }}</h3>
+  <button @click="$store.state.name = 'park'">button</button>
+
   <Container
     :posts="posts"
     :tabState="tabState"
