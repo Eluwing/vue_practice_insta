@@ -5,7 +5,7 @@
 
   <!-- フィルター選択コンポーネント -->
   <div v-else-if="tabState == 1">
-    <div class="upload-image" :style="uploadFlieStyle"></div>
+    <div :class="`${selectedFilter} upload-image`" :style="uploadFlieStyle"></div>
     <div class="filters">
       <FilterBox v-for="(item) in filters" :key="item" :uploadFileUrl="uploadFileUrl" :filter="item">
         {{item}}
@@ -15,7 +15,7 @@
 
   <!-- 作成コンポーネント -->
   <div v-else-if="tabState == 2">
-    <div class="upload-image" :style="uploadFlieStyle"></div>
+    <div :class="`${selectedFilter} upload-image`" :style="uploadFlieStyle"></div>
     <div class="write">
       <textarea class="write-box" v-model="content"></textarea>
     </div>
@@ -35,6 +35,7 @@ export default {
     posts: Array,
     tabState: Number,
     uploadFileUrl: String,
+    selectedFilter: String,
   },
   watch: {
     content(newValue) {

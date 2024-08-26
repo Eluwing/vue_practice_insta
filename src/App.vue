@@ -14,6 +14,7 @@
     :posts="posts"
     :tabState="tabState"
     :uploadFileUrl="uploadFileUrl"
+    :selectedFilter="selectedFilter"
     @changeContent="handleContent"
   />
 
@@ -48,13 +49,13 @@ export default {
       tabLists: [],
       uploadFileUrl: "",
       uploadContent: "",
-      uploadFilter: "",
+      selectedFilter: "",
     };
   },
   mounted() {
     this.tabLists = ["Post", "Fliter", "Write"];
     this.emitter.on('clickedFilter', (name)=>{
-      this.uploadFilter = name;
+      this.selectedFilter = name;
     });
   },
   methods: {
@@ -94,7 +95,7 @@ export default {
         date: new Date().toLocaleDateString("ja-JP"),
         liked: false,
         content: `${this.uploadContent}`,
-        filter: `${this.uploadFilter}`,
+        filter: `${this.selectedFilter}`,
       };
       this.posts.unshift(inputObj);
       this.tabState = 0;
