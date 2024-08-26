@@ -7,29 +7,27 @@
   <div v-else-if="tabState == 1">
     <div class="upload-image" :style="uploadFlieStyle"></div>
     <div class="filters">
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
-      <div class="filter-1"></div>
+      <FilterBox v-for="(item) in filters" :key="item" :uploadFileUrl="uploadFileUrl" :filter="item"></FilterBox>
     </div>
   </div>
 
   <!-- 作成コンポーネント -->
-  <div v-else-if="tabState == 2" >
+  <div v-else-if="tabState == 2">
     <div class="upload-image" :style="uploadFlieStyle"></div>
     <div class="write">
-      <textarea class="write-box" v-model="content" ></textarea>
+      <textarea class="write-box" v-model="content"></textarea>
     </div>
   </div>
 </template>
 
 <script>
+import FilterBox from "./FilterBox.vue";
 import Post from "./Post.vue";
 export default {
   name: "ContainerItem",
   components: {
     Post,
+    FilterBox,
   },
   props: {
     posts: Array,
@@ -37,24 +35,51 @@ export default {
     uploadFileUrl: String,
   },
   watch: {
-    content(newValue){
-      this.$emit('changeContent',newValue);
-    }
+    content(newValue) {
+      this.$emit("changeContent", newValue);
+    },
   },
   computed: {
     uploadFlieStyle() {
       return {
         backgroundImage: `url(${this.uploadFileUrl})`,
       };
-    },    
+    },
   },
   data() {
     return {
-      content: '',
-    }
+      content: "",
+      filters: [
+        "aden",
+        "_1977",
+        "brannan",
+        "brooklyn",
+        "clarendon",
+        "earlybird",
+        "gingham",
+        "hudson",
+        "inkwell",
+        "kelvin",
+        "lark",
+        "lofi",
+        "maven",
+        "mayfair",
+        "moon",
+        "nashville",
+        "perpetua",
+        "reyes",
+        "rise",
+        "slumber",
+        "stinson",
+        "toaster",
+        "valencia",
+        "walden",
+        "willow",
+        "xpro2",
+      ],
+    };
   },
-  methods: {
-  }
+  methods: {},
 };
 </script>
 
