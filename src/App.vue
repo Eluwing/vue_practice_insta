@@ -10,15 +10,17 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <h3>Hello {{ $store.state.name }}</h3>
-  <button @click="$store.state.name = 'park'">button</button>
-
+  <h3>Hello {{ $store.state.name }} : {{$store.state.age}}</h3>
+  <button @click="$store.commit('setName')">button</button>
+  <button @click="$store.commit('increaseAge', 10)">button</button>
   <Container
     :posts="posts"
     :tabState="tabState"
     :uploadFileUrl="uploadFileUrl"
     :selectedFilter="selectedFilter"
     @changeContent="handleContent"
+    @click="increaseLike"
+    @dblclick="decreaseLike"
   />
 
   <button @click="more">More</button>
@@ -53,6 +55,7 @@ export default {
       uploadFileUrl: "",
       uploadContent: "",
       selectedFilter: "",
+      clickedTimeout: null,
     };
   },
   mounted() {
@@ -103,6 +106,19 @@ export default {
       this.posts.unshift(inputObj);
       this.tabState = 0;
     },
+    increaseLike() {
+      if(this.clickedTimeout){
+        clearTimeout(this.clickedTimeout)
+      }
+      this.clickedTimeout = setTimeout(() => {
+        this.$store.commit("increaseLike");  
+      }, 300);
+    },
+    decreaseLike() {
+      clearTimeout(this.clickedTimeout);
+      this.clickedTimeout = null;
+      this.$store.commit("decreaseLike");
+    }
   },
 };
 </script>
