@@ -9,18 +9,17 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
-
-  <h3>Hello {{ $store.state.name }} : {{$store.state.age}}</h3>
+  <!-- Vuex練習コード -->
+  <!-- <h3>Hello {{ $store.state.name }} : {{$store.state.age}}</h3>
   <button @click="$store.commit('setName')">button</button>
-  <button @click="$store.commit('increaseAge', 10)">button</button>
+  <button @click="$store.commit('increaseAge', 10)">button</button> -->
   <Container
     :posts="posts"
     :tabState="tabState"
     :uploadFileUrl="uploadFileUrl"
     :selectedFilter="selectedFilter"
     @changeContent="handleContent"
-    @click="increaseLike"
-    @dblclick="decreaseLike"
+    @click="$store.commit('increaseLike')"
   />
 
   <button @click="more">More</button>
