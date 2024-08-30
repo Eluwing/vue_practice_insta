@@ -1,6 +1,6 @@
 <template>
   <div v-if="tabState == 0">
-    <Post :post="post" v-for="(post, i) in posts" :key="i" />
+    <Post :post="post" v-for="(post, i) in posts" :key="post" :clickeIndex="i"/>
   </div>
 
   <!-- フィルター選択コンポーネント -->

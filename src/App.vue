@@ -16,7 +16,6 @@
     :uploadFileUrl="uploadFileUrl"
     :selectedFilter="selectedFilter"
     @changeContent="handleContent"
-    @click="$store.commit('increaseLike')"
   />
 
   <button @click="$store.dispatch('addPostData')">More</button>
@@ -76,7 +75,6 @@ export default {
         filter: `${this.selectedFilter}`,
       };
       this.$store.commit('addPost', inputObj);
-      // this.posts.unshift(inputObj);
       this.tabState = 0;
     },
   },
