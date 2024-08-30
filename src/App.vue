@@ -9,10 +9,7 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
-  <!-- Vuex練習コード -->
-  <!-- <h3>Hello {{ $store.state.name }} : {{$store.state.age}}</h3>
-  <button @click="$store.commit('setName')">button</button>
-  <button @click="$store.commit('increaseAge', 10)">button</button> -->
+
   <Container
     :posts="$store.state.posts"
     :tabState="tabState"
@@ -33,7 +30,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Container from "./components/Container.vue";
 
 export default {
@@ -43,12 +39,10 @@ export default {
   },
   data() {
     return {
-      moreButtonCount: 0,
       tabState: 0,
       uploadFileUrl: "",
       uploadContent: "",
       selectedFilter: "",
-      clickedTimeout: null,
     };
   },
   mounted() {
@@ -59,22 +53,6 @@ export default {
     this.$store.dispatch('getPostsData')
   },
   methods: {
-    more() {
-      axios
-        .get(
-          `https://codingapple1.github.io/vue/more${this.moreButtonCount}.json`
-        )
-        .then((result) => {
-          //get成功し実行するコード
-          this.posts = [...this.posts, result.data];
-          // this.posts.push(result.data)
-          this.moreButtonCount++;
-          // サーバーにmore2以上のデータが用意されてないため、値初期化
-          if (this.moreButtonCount == 2) {
-            this.moreButtonCount = 0;
-          }
-        });
-    },
     onTabClick(clickedState) {
       this.tabState = clickedState;
     },
@@ -97,22 +75,10 @@ export default {
         content: `${this.uploadContent}`,
         filter: `${this.selectedFilter}`,
       };
-      this.posts.unshift(inputObj);
+      this.$store.commit('addPost', inputObj);
+      // this.posts.unshift(inputObj);
       this.tabState = 0;
     },
-    increaseLike() {
-      if(this.clickedTimeout){
-        clearTimeout(this.clickedTimeout)
-      }
-      this.clickedTimeout = setTimeout(() => {
-        this.$store.commit("increaseLike");  
-      }, 300);
-    },
-    decreaseLike() {
-      clearTimeout(this.clickedTimeout);
-      this.clickedTimeout = null;
-      this.$store.commit("decreaseLike");
-    }
   },
 };
 </script>
