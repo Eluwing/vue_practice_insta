@@ -11,7 +11,7 @@
   </div>
 
   <Container
-    :posts="$store.state.posts"
+    :posts="posts"
     :tabState="tabState"
     :uploadFileUrl="uploadFileUrl"
     :selectedFilter="selectedFilter"
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import Container from "./components/Container.vue";
 
 export default {
@@ -43,6 +44,9 @@ export default {
       uploadContent: "",
       selectedFilter: "",
     };
+  },
+  computed: {
+    ...mapState(['posts'])
   },
   mounted() {
     this.tabLists = ["Post", "Fliter", "Write"];
