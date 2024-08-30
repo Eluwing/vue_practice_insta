@@ -14,7 +14,7 @@
   <button @click="$store.commit('setName')">button</button>
   <button @click="$store.commit('increaseAge', 10)">button</button> -->
   <Container
-    :posts="posts"
+    :posts="$store.state.posts"
     :tabState="tabState"
     :uploadFileUrl="uploadFileUrl"
     :selectedFilter="selectedFilter"
@@ -22,10 +22,7 @@
     @click="$store.commit('increaseLike')"
   />
 
-  <button @click="more">More</button>
-  <button v-for="(item, i) in tabLists" :key="i" @click="onTabClick(i)">
-    {{ item }}
-  </button>
+  <button @click="$store.dispatch('addPostData')">More</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -38,7 +35,6 @@
 <script>
 import axios from "axios";
 import Container from "./components/Container.vue";
-import Posts from "@/assets/Posts";
 
 export default {
   name: "App",
@@ -47,10 +43,8 @@ export default {
   },
   data() {
     return {
-      posts: Posts,
       moreButtonCount: 0,
       tabState: 0,
-      tabLists: [],
       uploadFileUrl: "",
       uploadContent: "",
       selectedFilter: "",
@@ -62,6 +56,7 @@ export default {
     this.emitter.on('clickedFilter', (name)=>{
       this.selectedFilter = name;
     });
+    this.$store.dispatch('getPostsData')
   },
   methods: {
     more() {
