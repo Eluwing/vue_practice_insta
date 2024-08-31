@@ -20,16 +20,24 @@
       <textarea class="write-box" v-model="content"></textarea>
     </div>
   </div>
+
+  <div v-else-if="tabState == 3">
+    <MyPage />
+  </div>
+
 </template>
 
 <script>
 import FilterBox from "./FilterBox.vue";
+import MyPage from "./MyPage.vue";
 import Post from "./Post.vue";
+
 export default {
   name: "ContainerItem",
   components: {
     Post,
     FilterBox,
+    MyPage
   },
   props: {
     posts: Array,
