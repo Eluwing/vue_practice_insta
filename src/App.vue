@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      tabState: 0,
+      tabState: 3,
       uploadFileUrl: "",
       uploadContent: "",
       selectedFilter: "",

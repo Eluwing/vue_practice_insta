@@ -1,10 +1,10 @@
 <template>
   <div style="padding: 10px">
-    <h4>팔로워</h4>
-    <input placeholder="?" />
-    <div class="post-header">
-      <div class="profile"></div>
-      <span class="profile-name">{{follower}}</span>
+    <h4>Follower</h4>
+    <input placeholder="名前を入力してください" />
+    <div class="post-header" v-for="(item,i) in follower" :key="i">
+      <div class="profile" :style="`background-image:url(${ item.image }); cursor: pointer;`"></div>
+      <span class="profile-name">{{item.name}}</span>
     </div>
   </div>
 </template>
@@ -23,12 +23,8 @@ export default {
       })
     })
     
+    return {follower}
   },
-  data(){
-    return{
-
-    }
-  }
 };
 </script>
 
