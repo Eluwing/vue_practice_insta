@@ -6,6 +6,7 @@ const store = createStore({
     return {
       moreCount: 0,
       posts: [],
+      followers: [],
     }
   },
   mutations: {
@@ -39,9 +40,11 @@ const store = createStore({
       else {
         state.posts[clickedIndex].likes--
         state.posts[clickedIndex].liked = false
-      }
-      
+      }      
     },
+    initFollowers(state,data){
+      state.followers = [...data];
+    }
   },
   actions: {
     async getPostsData(context) {
@@ -64,6 +67,15 @@ const store = createStore({
         }
       } catch (error) {
         console.error('Error Add fetching posts:', error);
+      }
+    },
+    async getFollwers(context) {
+      try {
+        const result = await axios.get('/Follower.json');
+        //配列に追加
+        context.commit('initFollowers', result.data);
+      } catch (error) {
+        console.error('Error Add Follwers fetching posts:', error);
       }
     },
   },
