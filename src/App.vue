@@ -9,6 +9,8 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
+  <FollowerBox />
+
 
   <Container
     :posts="posts"
@@ -31,11 +33,13 @@
 <script>
 import { mapState } from "vuex";
 import Container from "./components/Container.vue";
+import FollowerBox from "./components/FollowerBox.vue"
 
 export default {
   name: "App",
   components: {
     Container,
+    FollowerBox,
   },
   data() {
     return {
@@ -53,7 +57,8 @@ export default {
     this.emitter.on('clickedFilter', (name)=>{
       this.selectedFilter = name;
     });
-    this.$store.dispatch('getPostsData')
+    this.$store.dispatch('getPostsData');
+    this.$store.dispatch('getFollwers');
   },
   methods: {
     onTabClick(clickedState) {
@@ -161,5 +166,6 @@ ul {
   position: relative;
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
+  overflow: hidden;
 }
 </style>
