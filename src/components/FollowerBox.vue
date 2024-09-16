@@ -24,17 +24,19 @@ export default {
 <style>
 .follower-wrapper {
   display: flex;
-  overflow: hidden;
+  width: 100%;
+  padding: 10px;
 }
 .follower-box {
   display: grid;
   justify-content: center;
   align-items: center;
   justify-items: center;
+  padding: 10px;
 }
 .follower-image {
-  width: 30px;
-  height: 30px;
+  width: 45px;
+  height: 45px;
   background-size: 100%;
   border-radius: 50%;
   float: left;

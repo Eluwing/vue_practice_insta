@@ -166,5 +166,6 @@ ul {
   position: relative;
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
+  overflow: hidden;
 }
 </style>
