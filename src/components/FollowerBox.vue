@@ -26,6 +26,10 @@ export default {
   display: flex;
   width: 100%;
   padding: 10px;
+  overflow-y: scroll;
+}
+.follower-wrapper::-webkit-scrollbar {
+  display: none;
 }
 .follower-box {
   display: grid;
