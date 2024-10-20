@@ -27,7 +27,7 @@ const store = createStore({
       state.moreCount = 0
     },
     addPost(state, data) {
-      state.posts = [data, ...state.posts]
+      state.posts = [...state.posts,data]
     },
     setPosts(state, data) {
       state.posts = data
