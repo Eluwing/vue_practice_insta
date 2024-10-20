@@ -1,6 +1,8 @@
 <template>
   <div v-if="tabState == 0">
-    <Post :post="post" v-for="(post, i) in posts" :key="post" :clickeIndex="i"/>
+    <InfinityScroll>
+      <Post :post="post" v-for="(post, i) in posts" :key="post" :clickeIndex="i"/>
+    </InfinityScroll>
   </div>
 
   <!-- フィルター選択コンポーネント -->
@@ -31,13 +33,15 @@
 import FilterBox from "./FilterBox.vue";
 import MyPage from "./MyPage.vue";
 import Post from "./Post.vue";
+import InfinityScroll from "./InfinityScroll.vue"
 
 export default {
   name: "ContainerItem",
   components: {
     Post,
     FilterBox,
-    MyPage
+    MyPage,
+    InfinityScroll,
   },
   props: {
     posts: Array,

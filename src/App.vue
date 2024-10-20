@@ -28,13 +28,12 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-  <div ref="loadMoreTrigger"></div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import Container from "./components/Container.vue";
-import FollowerBox from "./components/FollowerBox.vue"
+import FollowerBox from "./components/FollowerBox.vue";
 
 export default {
   name: "App",
@@ -56,7 +55,6 @@ export default {
     ...mapState(['posts'])
   },
   mounted() {
-    this.createObserver();
     this.tabLists = ["Post", "Fliter", "Write"];
     this.emitter.on('clickedFilter', (name)=>{
       this.selectedFilter = name;
@@ -90,28 +88,8 @@ export default {
       this.$store.commit('addPost', inputObj);
       this.tabState = 0;
     },
-    createObserver() {
-      console.log('createObserver!');
-      const options = {
-        root: null,         // 뷰포트를 기준으로 함
-        rootMargin: '100px',// 100px 앞서서 감지
-        threshold: 0.1      // 요소가 10% 보일 때 트리거
-      };
-      this.observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          this.$store.dispatch('addPostData');
-        }
-      }, options);
-
-      if (this.$refs.loadMoreTrigger) {
-        this.observer.observe(this.$refs.loadMoreTrigger);
-      }
-    },
   },
   onBeforeUnmount() {
-    if (this.observer && this.$refs.loadMoreTrigger) {
-      this.observer.unobserve(this.$refs.loadMoreTrigger);
-    }
   },
 };
 </script>
