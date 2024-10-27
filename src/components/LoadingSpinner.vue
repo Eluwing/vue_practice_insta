@@ -1,16 +1,28 @@
 <template>
-  <div>
-    <LoadingSpinnerIcon />
+  <div class="wrapper">
+    <img
+      class="loading-spinner"
+      src="@/assets/loading-spinner.svg"
+      alt="Loading spinner"
+    />
   </div>
 </template>
 
 <script>
-import LoadingSpinnerIcon from '../assets/loading-spinner.svg';
-
 export default {
   name: "LoadingSpinner",
-  components: {
-    LoadingSpinnerIcon
-  },
+  components: {},
 };
 </script>
+<style scoped>
+.wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+.loading-spinner {
+  width: 10%;
+  height: auto;
+}
+</style>

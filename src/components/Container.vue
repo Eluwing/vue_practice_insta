@@ -33,7 +33,7 @@
 import FilterBox from "./FilterBox.vue";
 import MyPage from "./MyPage.vue";
 import Post from "./Post.vue";
-import InfinityScroll from "./InfinityScroll.vue"
+import InfinityScroll from "./InfinityScroll.vue";
 
 export default {
   name: "ContainerItem",
