@@ -65,23 +65,14 @@ const store = createStore({
     async addPostData(context) {
       try {
         context.commit('setIsLoading', true);
-        this.timeoutId = setTimeout(async () => {
-          const result = await axios.get(`https://codingapple1.github.io/vue/more${context.state.moreCount}.json`);
-          context.commit('addPost', result.data);
-          context.commit('increaseMoreCount');
-          if (context.state.moreCount == 2) {
-            context.commit('initMoreCount');
-          }
-          context.commit('setIsLoading', false);
-        }, 3000);
-        // const result = await axios.get(`https://codingapple1.github.io/vue/more${context.state.moreCount}.json`);
-        //配列に追加
-        // context.commit('addPost', result.data);
-        // context.commit('increaseMoreCount');
+        const result = await axios.get(`https://codingapple1.github.io/vue/more${context.state.moreCount}.json`);
+        // 配列に追加
+        context.commit('addPost', result.data);
+        context.commit('increaseMoreCount');
         // サーバーにmore2以上のデータが用意されてないため、値初期化
-        // if (context.state.moreCount == 2) {
-        //   context.commit('initMoreCount');
-        // }
+        if (context.state.moreCount == 2) {
+          context.commit('initMoreCount');
+        }
       } catch (error) {
         context.commit('setIsLoading', false);
         console.error('Error Add fetching posts:', error);
