@@ -11,7 +11,6 @@
   </div>
   <FollowerBox />
 
-
   <Container
     :posts="posts"
     :tabState="tabState"
@@ -21,6 +20,8 @@
   />
 
   <button @click="$store.dispatch('addPostData')">More</button>
+  <LoadingSpinner v-if="isLoading"/>
+  
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -32,25 +33,29 @@
 
 <script>
 import { mapState } from "vuex";
-import Container from "./components/Container.vue";
-import FollowerBox from "./components/FollowerBox.vue"
+import Container from "@/components/Container.vue";
+import FollowerBox from "@/components/FollowerBox.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "App",
   components: {
     Container,
     FollowerBox,
+    LoadingSpinner,
   },
   data() {
     return {
-      tabState: 3,
+      tabState: 0,
       uploadFileUrl: "",
       uploadContent: "",
       selectedFilter: "",
+      observer: null,
+      loadMoreTrigger: null,
     };
   },
   computed: {
-    ...mapState(['posts'])
+    ...mapState(['posts','isLoading'])
   },
   mounted() {
     this.tabLists = ["Post", "Fliter", "Write"];
@@ -86,6 +91,8 @@ export default {
       this.$store.commit('addPost', inputObj);
       this.tabState = 0;
     },
+  },
+  onBeforeUnmount() {
   },
 };
 </script>
