@@ -1,41 +1,69 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li @click="tabState = 0">Cancel</li>
+      <li @click="tabState = 0">
+        Cancel
+      </li>
     </ul>
     <ul class="header-button-right">
-      <li v-if="tabState != 0 && tabState != 2" @click="tabState++">Next</li>
-      <li v-if="tabState == 2" @click="publish">Post</li>
+      <li
+        v-if="tabState != 0 && tabState != 2"
+        @click="tabState++"
+      >
+        Next
+      </li>
+      <li
+        v-if="tabState == 2"
+        @click="publish"
+      >
+        Post
+      </li>
     </ul>
-    <img src="./assets/logo.png" class="logo" />
+    <img
+      src="./assets/logo.png"
+      class="logo"
+    >
   </div>
   <FollowerBox />
-
+  <div class="footer">
+    <BottomBar
+      :menu="buttomBarList"
+      :loginUser="loginUser"
+    />
+    <!-- <ul class="footer-button-plus">
+      <input
+        id="file"
+        type="file"
+        class="inputfile"
+        @change="upload"
+      >
+      <label
+        for="file"
+        class="input-plus"
+      >+</label>
+    </ul> -->
+  </div>
   <Container
     :posts="posts"
-    :tabState="tabState"
-    :uploadFileUrl="uploadFileUrl"
-    :selectedFilter="selectedFilter"
+    :tab-state="tabState"
+    :upload-file-url="uploadFileUrl"
+    :selected-filter="selectedFilter"
     @changeContent="handleContent"
   />
 
-  <button @click="$store.dispatch('addPostData')">More</button>
-  <LoadingSpinner v-if="isLoading"/>
-  
-
-  <div class="footer">
-    <ul class="footer-button-plus">
-      <input @change="upload" type="file" id="file" class="inputfile" />
-      <label for="file" class="input-plus">+</label>
-    </ul>
-  </div>
+  <button @click="$store.dispatch('addPostData')">
+    More
+  </button>
+  <LoadingSpinner v-if="isLoading" />
 </template>
 
 <script>
 import { mapState } from "vuex";
-import Container from "@/components/Container.vue";
-import FollowerBox from "@/components/FollowerBox.vue";
-import LoadingSpinner from "@/components/LoadingSpinner.vue";
+import Container from "./components/Container.vue";
+import FollowerBox from "./components/FollowerBox.vue";
+import LoadingSpinner from "./components/icons/LoadingSpinner.vue";
+import BottomBar from "./components/BottomBar.vue";
+import { bottomBarMenu } from "./components/constants/bottomBarMenu";
 
 export default {
   name: "App",
@@ -43,6 +71,7 @@ export default {
     Container,
     FollowerBox,
     LoadingSpinner,
+    BottomBar,
   },
   data() {
     return {
@@ -52,6 +81,7 @@ export default {
       selectedFilter: "",
       observer: null,
       loadMoreTrigger: null,
+      buttomBarList: bottomBarMenu,
     };
   },
   computed: {
@@ -138,11 +168,14 @@ ul {
   margin-top: 10px;
 }
 .footer {
-  width: 100%;
-  position: sticky;
+  display: flex;
+  width: 460px;
+  position: fixed;
   bottom: 0;
   padding-bottom: 10px;
   background-color: white;
+  z-index: 1;
+  margin: 0 auto;
 }
 .footer-button-plus {
   width: 80px;

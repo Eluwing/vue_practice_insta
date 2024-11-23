@@ -4,7 +4,7 @@
       class="loading-spinner"
       src="@/assets/loading-spinner.svg"
       alt="Loading spinner"
-    />
+    >
   </div>
 </template>
 

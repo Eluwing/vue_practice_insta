@@ -8,6 +8,13 @@ const store = createStore({
       posts: [],
       followers: [],
       isLoading: false,
+      bottomButtonList: [],
+      loginUser: {
+        id:0,
+        title: '',
+        path: '',
+        route: '/'
+      },
     }
   },
   mutations: {
@@ -48,6 +55,13 @@ const store = createStore({
     },
     initFollowers(state, data) {
       state.followers = [...data];
+    },
+    initBottomButtonList(state, data) {
+      state.bottomButtonList = [...data];
+    },
+    setLoginUser(state, data) {
+      state.loginUser = data;
+      console.log(state.loginUser);
     }
   },
   actions: {
@@ -88,6 +102,9 @@ const store = createStore({
       } catch (error) {
         console.error('Error Add Follwers fetching posts:', error);
       }
+    },
+    getBottomButtonList(context, data){
+      context.commit('initBottomButtonList', data);
     },
   },
 })
