@@ -1,5 +1,4 @@
 <template>
-
   <div class="wrapper">
     <router-link :to="`${data.route}`">
     <img
@@ -10,7 +9,6 @@
     >
   </router-link>
   </div>
-
 </template>
 
 <script >
