@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div class="header">
     <ul class="header-button-left">
       <li @click="tabState = 0">
@@ -20,7 +20,7 @@
       </li>
     </ul>
     <img
-      src="./assets/logo.png"
+      src="@/assets/logo.png"
       class="logo"
     >
   </div>
@@ -30,6 +30,18 @@
       :menu="buttomBarList"
       :loginUser="loginUser"
     />
+    <!-- <ul class="footer-button-plus">
+      <input
+        id="file"
+        type="file"
+        class="inputfile"
+        @change="upload"
+      >
+      <label
+        for="file"
+        class="input-plus"
+      >+</label>
+    </ul> -->
   </div>
   <Container
     :posts="posts"
@@ -47,14 +59,14 @@
 
 <script>
 import { mapState } from "vuex";
-import Container from "./components/Container.vue";
-import FollowerBox from "./components/FollowerBox.vue";
-import LoadingSpinner from "./components/icons/LoadingSpinner.vue";
-import BottomBar from "./components/BottomBar.vue";
-import { bottomBarMenu } from "./components/constants/bottomBarMenu";
+import Container from "@/components/Container.vue";
+import FollowerBox from "@/components/FollowerBox.vue";
+import LoadingSpinner from "@/components/icons/LoadingSpinner.vue";
+import BottomBar from "@/components/BottomBar.vue";
+import { bottomBarMenu } from "@/components/constants/bottomBarMenu";
 
 export default {
-  name: "App",
+  name: "HomeView",
   components: {
     Container,
     FollowerBox,
@@ -196,14 +208,4 @@ ul {
   border-left: 1px solid #eee;
   overflow: hidden;
 }
-</style> -->
-<!-- TODO:各ページが完成されたら修正 -->
-<template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/search">Search</router-link> |
-    <router-link to="/upload">Upload</router-link> |
-    <router-link to="/activity">Activity</router-link>
-  </nav>
-  <router-view />
-</template>
+</style>
