@@ -3,7 +3,7 @@ export const bottomBarMenu = [
     id: 1,
     title: "home",
     path: "/assets/home-icon-bottom-bar.svg", 
-    route: "/home",
+    route: "/",
   },
   {
     id: 2,
