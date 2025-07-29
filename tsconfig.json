@@ -13,7 +13,11 @@
     "rootDir": "src",
     "outDir": "dist",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@home/*": ["src/views/Home/*"],
+      "@upload/*": ["src/views/Upload/*"],
+      "@search/*": ["src/views/Search/*"],
+      "@activity/*": ["src/views/Activity/*"],
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/**/*.js"],
