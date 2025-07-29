@@ -11,6 +11,7 @@ module.exports = defineConfig({
       extensions: ['.ts', '.js', '.vue'],
       alias: {
         '@': path.resolve(__dirname, 'src'),
+        '@composables': path.resolve(__dirname, 'src/composables'),
         '@home': path.resolve(__dirname, 'src/views/Home'),
         '@upload': path.resolve(__dirname, 'src/views/Upload'),
         '@search': path.resolve(__dirname, 'src/views/Search'),
