@@ -8,10 +8,11 @@
 import FilterSelect from "@upload/components/filter-select";
 
 export default {
-
   name: 'UploadPage',
   props: [],
-  components: [FilterSelect],
+  components: {
+    FilterSelect
+  },
   data() {
     return {};
   },
