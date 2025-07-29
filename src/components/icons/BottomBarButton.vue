@@ -1,11 +1,13 @@
 <template>
   <div class="wrapper">
+    <router-link :to="`${data.route}`">
     <img
       class="image"
       :class="type"
       :src="data.path"
       :key="'to'+ data.title + 'page'"
     >
+  </router-link>
   </div>
 </template>
 
