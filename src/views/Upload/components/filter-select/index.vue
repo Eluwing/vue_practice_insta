@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: 臨時アップロード機能、別のページでローカルで格納されている写真を選択するような機能追加必要 -->
   <div class="temp-upload-wrapper">
     <span>Upload page</span>
     <div>
@@ -31,10 +32,10 @@
 </template>
 
 <script>
-import FilterBox from "./components/FilterBox";
+import FilterBox from "@upload/components/filter-select/FilterBox";
 
 export default {
-  name: "UploadPage",
+  name: "FilterSelect",
   components: {
     FilterBox,
   },

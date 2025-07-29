@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/Home/HomeView.vue";
-import UploadView from "@/views/Upload/UploadView.vue";
+import UploadView from "@/views/Upload/index.vue";
 import { bottomBarMenu } from "@/components/constants/bottomBarMenu";
 import { Component } from "vue";
 import SearchView from "@/views/Search/SearchView.vue";
