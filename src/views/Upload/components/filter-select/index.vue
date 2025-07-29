@@ -17,7 +17,7 @@
   </div>
   <div
     :class="`${selectedFilter} upload-image`"
-    :style="uploadFlieStyle"
+    :style="uploadFileStyle"
   />
   <div class="filters">
     <FilterBox
@@ -31,95 +31,103 @@
   </div>
 </template>
 
-<script>
-import FilterBox from "@upload/components/filter-select/FilterBox";
+<script setup lang="ts">
+import { ref, computed, onMounted, inject } from "vue";
+import { useStore } from "vuex";
+// import type { Store } from "vuex";
+import type { Emitter } from "mitt"; // mitt 사용한다고 가정
+import FilterBox from "@upload/components/filter-select/FilterBox.vue";
 
-export default {
-  name: "FilterSelect",
-  components: {
-    FilterBox,
-  },
-  props: {},
-  data() {
-    return {
-      uploadFileUrl: "",
-      uploadContent: "",
-      selectedFilter: "",
-      content: "",
-      filters: [
-        "aden",
-        "_1977",
-        "brannan",
-        "brooklyn",
-        "clarendon",
-        "earlybird",
-        "gingham",
-        "hudson",
-        "inkwell",
-        "kelvin",
-        "lark",
-        "lofi",
-        "maven",
-        "mayfair",
-        "moon",
-        "nashville",
-        "perpetua",
-        "reyes",
-        "rise",
-        "slumber",
-        "stinson",
-        "toaster",
-        "valencia",
-        "walden",
-        "willow",
-        "xpro2",
-      ],
-    };
-  },
-  computed: {
-    uploadFlieStyle() {
-      return {
-        backgroundImage: `url(${this.uploadFileUrl})`,
-      };
-    },
-  },
-  mounted() {
-    this.tabLists = ["Post", "Fliter", "Write"];
-    this.emitter.on("clickedFilter", (name) => {
-      this.selectedFilter = name;
-    });
-    this.$store.dispatch("getPostsData");
-    this.$store.dispatch("getFollwers");
-    // this.upload();
-  },
-  methods: {
-    onTabClick(clickedState) {
-      this.tabState = clickedState;
-    },
-    upload(e) {
-      let file = e.target.files;
-      this.uploadFileUrl = URL.createObjectURL(file[0]);
-      this.onTabClick(1);
-    },
-    handleContent(text) {
-      this.uploadContent = text;
-    },
-    publish() {
-      var inputObj = {
-        name: "Kim Hyun",
-        userImage: "https://picsum.photos/100?random=3",
-        postImage: `${this.uploadFileUrl}`,
-        likes: 0,
-        date: new Date().toLocaleDateString("ja-JP"),
-        liked: false,
-        content: `${this.uploadContent}`,
-        filter: `${this.selectedFilter}`,
-      };
-      this.$store.commit("addPost", inputObj);
-      this.tabState = 0;
-    },
-  },
+import { useSelectedFilter } from '@/composables/useSelectedFilter'
+
+const { selectedFilter } = useSelectedFilter();
+
+// ----------------------
+// 타입 정의
+// ----------------------
+interface PostInput {
+  name: string;
+  userImage: string;
+  postImage: string;
+  likes: number;
+  date: string;
+  liked: boolean;
+  content: string;
+  filter: string;
+}
+
+type Events = {
+  clickedFilter: string;
 };
+
+
+// ----------------------
+// 상태 정의
+// ----------------------
+const store = useStore();
+const emitter = inject<Emitter<Events>>("emitter");
+
+const uploadFileUrl = ref<string>("");
+// const uploadContent = ref<string>("");
+// const selectedFilter = ref<string>("");
+// const content = ref<string>("");
+const tabState = ref<number>(0);
+// const tabLists = ref<string[]>(["Post", "Fliter", "Write"]);
+
+const filters = ref<string[]>([
+  "aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird",
+  "gingham", "hudson", "inkwell", "kelvin", "lark", "lofi", "maven",
+  "mayfair", "moon", "nashville", "perpetua", "reyes", "rise", "slumber",
+  "stinson", "toaster", "valencia", "walden", "willow", "xpro2",
+]);
+
+const uploadFileStyle = computed(() => ({
+  backgroundImage: `url(${uploadFileUrl.value})`,
+}));
+
+// ----------------------
+// 함수 정의
+// ----------------------
+function onTabClick(clickedState: number): void {
+  tabState.value = clickedState;
+}
+
+function upload(e: Event): void {
+  const target = e.target as HTMLInputElement;
+  const files = target.files;
+  if (files && files.length > 0) {
+    uploadFileUrl.value = URL.createObjectURL(files[0]);
+    onTabClick(1);
+  }
+}
+
+// function handleContent(text: string): void {
+//   uploadContent.value = text;
+// }
+
+// function publish(): void {
+//   const inputObj: PostInput = {
+//     name: "Kim Hyun",
+//     userImage: "https://picsum.photos/100?random=3",
+//     postImage: uploadFileUrl.value,
+//     likes: 0,
+//     date: new Date().toLocaleDateString("ja-JP"),
+//     liked: false,
+//     content: uploadContent.value,
+//     filter: selectedFilter.value,
+//   };
+//   store.commit("addPost", inputObj);
+//   tabState.value = 0;
+// }
+
+onMounted(() => {
+  // emitter?.on("clickedFilter", (name: string) => {
+  //   selectedFilter.value = name;
+  // });
+
+  store.dispatch("getPostsData");
+  store.dispatch("getFollwers");
+});
 </script>
 
 <style scoped>
