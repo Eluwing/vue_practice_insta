@@ -11,15 +11,46 @@ const componentMap: Record<string, Component> = {
   home: HomeView,
   search: SearchView,
   upload: UploadView,
-  activity: ActivityView, 
+  activity: ActivityView,
   // ページが追加されたら、以下に追加
 };
 
-const routes = bottomBarMenu.map((item) => ({
+const DummyView = {
+  template: '<div></div>',
+};
+
+const staticRoutes = [
+  {
+    path: "/upload",
+    component: DummyView, // 共通レイアウト
+    children: [
+      {
+        path: "file",
+        name: "upload-file",
+        component: DummyView,
+      },
+      {
+        path: "filter",
+        name: "upload-filter",
+        component: DummyView,
+      },
+      {
+        path: "post",
+        name: "upload-post",
+        component: DummyView,
+      },
+    ],
+  },
+];
+
+const routes = [
+  ...bottomBarMenu.map((item) => ({
   path: item.route,
   name: item.title,
   component: componentMap[item.title],
-}));
+})),
+  ...staticRoutes
+];
 
 const router = createRouter({
   history: createWebHistory(),
