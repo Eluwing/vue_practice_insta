@@ -8,29 +8,29 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { onMounted } from 'vue'
+import { computed } from 'vue'
+// import { onMounted } from 'vue'
 import { useImageFilter } from '@/composables/useImageFilter'
 
 const { selectedFilter, uploadFileUrl } = useImageFilter();
 
 // Props
-defineProps<{}>()
+// defineProps<{}>()
 
 // Emits
-const emit = defineEmits<{}>()
+// const emit = defineEmits<{}>()
 
 const uploadFileStyle = computed(() => ({
   backgroundImage: `url(${uploadFileUrl.value})`,
 }));
 
 // State
-const content = ref(null)
+// const content = ref(null)
 
 // Lifecycle
-onMounted(() => {
-  // do something
-})
+// onMounted(() => {
+//   // do something
+// })
 </script>
 
 <style scoped>
