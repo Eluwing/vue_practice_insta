@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import FilterSelect from "@upload/components/filter-select";
+import FilterSelect from "@upload/components/filter-select/FilterSelectView.vue";
 
 export default {
   name: 'UploadPage',
@@ -17,7 +17,6 @@ export default {
     return {};
   },
   methods: {},
-  mounted() {},
 };
 </script>
 

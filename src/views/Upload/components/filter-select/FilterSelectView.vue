@@ -32,10 +32,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, inject } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 // import type { Store } from "vuex";
-import type { Emitter } from "mitt"; // mitt 사용한다고 가정
+// import type { Emitter } from "mitt"; // mitt 사용한다고 가정
 import FilterBox from "@upload/components/filter-select/FilterBox.vue";
 
 import { useImageFilter } from '@/composables/useImageFilter'
@@ -45,27 +45,27 @@ const { selectedFilter, setFileUrl, uploadFileUrl } = useImageFilter();
 // ----------------------
 // 타입 정의
 // ----------------------
-interface PostInput {
-  name: string;
-  userImage: string;
-  postImage: string;
-  likes: number;
-  date: string;
-  liked: boolean;
-  content: string;
-  filter: string;
-}
+// interface PostInput {
+//   name: string;
+//   userImage: string;
+//   postImage: string;
+//   likes: number;
+//   date: string;
+//   liked: boolean;
+//   content: string;
+//   filter: string;
+// }
 
-type Events = {
-  clickedFilter: string;
-};
+// type Events = {
+//   clickedFilter: string;
+// };
 
 
 // ----------------------
 // 상태 정의
 // ----------------------
 const store = useStore();
-const emitter = inject<Emitter<Events>>("emitter");
+// const emitter = inject<Emitter<Events>>("emitter");
 
 // const uploadFileUrl = ref<string>("");
 // const uploadContent = ref<string>("");
