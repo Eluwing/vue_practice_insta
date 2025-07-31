@@ -38,9 +38,9 @@ import { useStore } from "vuex";
 import type { Emitter } from "mitt"; // mitt 사용한다고 가정
 import FilterBox from "@upload/components/filter-select/FilterBox.vue";
 
-import { useSelectedFilter } from '@/composables/useSelectedFilter'
+import { useImageFilter } from '@/composables/useImageFilter'
 
-const { selectedFilter } = useSelectedFilter();
+const { selectedFilter, setFileUrl, uploadFileUrl } = useImageFilter();
 
 // ----------------------
 // 타입 정의
@@ -67,7 +67,7 @@ type Events = {
 const store = useStore();
 const emitter = inject<Emitter<Events>>("emitter");
 
-const uploadFileUrl = ref<string>("");
+// const uploadFileUrl = ref<string>("");
 // const uploadContent = ref<string>("");
 // const selectedFilter = ref<string>("");
 // const content = ref<string>("");
@@ -96,7 +96,7 @@ function upload(e: Event): void {
   const target = e.target as HTMLInputElement;
   const files = target.files;
   if (files && files.length > 0) {
-    uploadFileUrl.value = URL.createObjectURL(files[0]);
+    setFileUrl(URL.createObjectURL(files[0]));
     onTabClick(1);
   }
 }

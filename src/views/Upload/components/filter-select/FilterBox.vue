@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { useSelectedFilter } from '@/composables/useSelectedFilter'
+import { useImageFilter } from '@/composables/useImageFilter'
 
-const { selectFilter } = useSelectedFilter();
+const { selectFilter } = useImageFilter();
 
 const props = defineProps<{
   uploadFileUrl: string;
