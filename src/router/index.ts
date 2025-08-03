@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "@/views/Home/HomeView.vue";
-import UploadView from "@/views/Upload/UploadView.vue";
 import { bottomBarMenu } from "@/components/constants/bottomBarMenu";
 import { Component } from "vue";
 import SearchView from "@/views/Search/SearchView.vue";
@@ -16,10 +15,6 @@ const componentMap: Record<string, Component> = {
   upload: FileSelectView,
   activity: ActivityView,
   // ページが追加されたら、以下に追加
-};
-
-const DummyView = {
-  template: '<div></div>',
 };
 
 const staticRoutes = [
