@@ -38,9 +38,9 @@ import { useStore } from "vuex";
 // import type { Emitter } from "mitt"; // mitt 사용한다고 가정
 import FilterBox from "@upload/components/filter-select/FilterBox.vue";
 
-import { useImageFilter } from '@/composables/useImageFilter'
+import { usePostContents } from '@/composables/usePostContents'
 
-const { selectedFilter, setFileUrl, uploadFileUrl } = useImageFilter();
+const { selectedFilter, setFileUrl, uploadFileUrl } = usePostContents();
 
 // ----------------------
 // 타입 정의

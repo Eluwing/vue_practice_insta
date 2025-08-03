@@ -7,9 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import { useImageFilter } from '@/composables/useImageFilter'
+import { usePostContents } from '@/composables/usePostContents'
 
-const { selectFilter } = useImageFilter();
+const { setSelectFilter } = usePostContents();
 
 const props = defineProps<{
   uploadFileUrl: string;
@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 
 function handleFliterClick() {
-  selectFilter(props.filter)
+  setSelectFilter(props.filter)
 }
 </script>
 

@@ -10,9 +10,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 // import { onMounted } from 'vue'
-import { useImageFilter } from '@/composables/useImageFilter'
+import { usePostContents } from '@/composables/usePostContents'
 
-const { selectedFilter, uploadFileUrl } = useImageFilter();
+const { selectedFilter, uploadFileUrl } = usePostContents();
 
 // Props
 // defineProps<{}>()
