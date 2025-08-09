@@ -1,31 +1,58 @@
 <template>
   <div>
-    <div :class="`${selectedFilter} upload-image`" :style="uploadFileStyle"></div>
+    <div
+      :class="`${selectedFilter} upload-image`"
+      :style="uploadFileStyle"
+    ></div>
     <div class="write">
       <textarea class="write-box" v-model="content"></textarea>
     </div>
   </div>
+  <!--TODO：臨時ボタン、トップバーでポスト、キャンセルできるようにする必要あり -->
+  <button @click="publish">Post</button>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-// import { onMounted } from 'vue'
-import { usePostContents } from '@/composables/usePostContents'
+import { computed, Ref, ref } from "vue";
+import { usePostContents } from "@/composables/usePostContents";
+import { useStore } from "vuex";
 
-const { selectedFilter, uploadFileUrl } = usePostContents();
+const { selectedFilter, uploadFileUrl, setContent } = usePostContents();
 
-// Props
-// defineProps<{}>()
+interface PostInput {
+  name: string;
+  userImage: string;
+  postImage: string;
+  likes: number;
+  date: string;
+  liked: boolean;
+  content: string;
+  filter: string;
+}
 
-// Emits
-// const emit = defineEmits<{}>()
+const store = useStore();
+
+// State
+const content: Ref<string> = ref("");
+
+const publish = (): void => {
+  const inputObj: PostInput = {
+    name: "Kim Hyun",
+    userImage: "https://picsum.photos/100?random=3",
+    postImage: uploadFileUrl.value,
+    likes: 0,
+    date: new Date().toLocaleDateString("ja-JP"),
+    liked: false,
+    content: content.value,
+    filter: selectedFilter.value,
+  };
+  setContent(content.value);
+  store.commit("addPost", inputObj);
+}
 
 const uploadFileStyle = computed(() => ({
   backgroundImage: `url(${uploadFileUrl.value})`,
 }));
-
-// State
-// const content = ref(null)
 
 // Lifecycle
 // onMounted(() => {
