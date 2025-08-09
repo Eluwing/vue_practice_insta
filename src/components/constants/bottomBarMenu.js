@@ -15,7 +15,7 @@ export const bottomBarMenu = [
     id: 3,
     title: "upload",
     path: "/assets/upload-icon-bottom-bar.svg", 
-    route: "/upload",
+    route: "/upload/file",
   },
   {
     id: 4,

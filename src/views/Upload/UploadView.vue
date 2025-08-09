@@ -5,18 +5,18 @@
 </template>
 
 <script>
-import FilterSelect from "@upload/components/filter-select";
+import FilterSelect from "@upload/components/filter-select/FilterSelectView.vue";
 
 export default {
-
   name: 'UploadPage',
   props: [],
-  components: [FilterSelect],
+  components: {
+    FilterSelect
+  },
   data() {
     return {};
   },
   methods: {},
-  mounted() {},
 };
 </script>
 

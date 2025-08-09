@@ -1,23 +1,23 @@
 <template>
-  <div :class="`${ filter } filter-item`" :style="`background-image:url(${ uploadFileUrl }); cursor: pointer;`" @click="fire">
+  <div :class="`${ filter } filter-item`" :style="`background-image:url(${ uploadFileUrl }); cursor: pointer;`" @click="handleFliterClick">
     <!-- 親が子コンポーネントのデータを使いたいならslot props利用 -->
     <!-- props代わりに<slot>を使ってデータバインディング可能 -->
     <slot></slot>
   </div> 
 </template>
 
-<script>
-export default {
-  name: 'FilterBox',
-  methods: {
-    fire(){
-      this.emitter.emit('clickedFilter', this.filter)
-    }
-  },
-  props: {
-    uploadFileUrl: String,
-    filter: String,
-  }
+<script setup lang="ts">
+import { usePostContents } from '@/composables/usePostContents'
+
+const { setSelectFilter } = usePostContents();
+
+const props = defineProps<{
+  uploadFileUrl: string;
+  filter: string;
+}>()
+
+function handleFliterClick() {
+  setSelectFilter(props.filter)
 }
 </script>
 

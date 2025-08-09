@@ -20,4 +20,10 @@ module.exports = {
     // want coustom role
     // ex: 'no-console': 'warn',
   },
+  globals: {
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
+  }
 };

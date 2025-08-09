@@ -122,8 +122,6 @@ export default {
       this.tabState = 0;
     },
   },
-  onBeforeUnmount() {
-  },
 };
 </script>
 
