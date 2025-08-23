@@ -1,58 +1,105 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "@/views/Home/HomeView.vue";
-import { bottomBarMenu } from "@/components/constants/bottomBarMenu";
-import { Component } from "vue";
-import SearchView from "@/views/Search/SearchView.vue";
-import ActivityView from "@/views/Activity/ActivityView.vue";
-import PostEditorView from "@/views/Upload/components/post-editor/PostEditorView.vue";
-import FilterSelectView from "@/views/Upload/components/filter-select/FilterSelectView.vue";
-import FileSelectView from "@/views/Upload/components/file-select/FileSelectView.vue";
 
-// コンポーネントマッピングテーブル
-const componentMap: Record<string, Component> = {
-  home: HomeView,
-  search: SearchView,
-  upload: FileSelectView,
-  activity: ActivityView,
-  // ページが追加されたら、以下に追加
-};
-
-const staticRoutes = [
-  {
-    path: "/upload",
-    // component: DummyView, // 共通レイアウト
-    children: [
-      {
-        path: "file",
-        name: "upload-file",
-        component: FileSelectView,
-      },
-      {
-        path: "filter",
-        name: "upload-filter",
-        component: FilterSelectView,
-      },
-      {
-        path: "post",
-        name: "upload-post",
-        component: PostEditorView,
-      },
-    ],
-  },
-];
-
-const routes = [
-  ...bottomBarMenu.map((item) => ({
-  path: item.route,
-  name: item.title,
-  component: componentMap[item.title],
-})),
-  ...staticRoutes
-];
-
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(),
-  routes,
+  routes: [
+    {
+      path: "/",
+      component: () => import("@/layouts/MainTabLayout.vue"),
+      children: [
+        // Bundleサイズ最適化のため、lazy loadingでコンポーネントを呼び出す
+        {
+          path: "",
+          name: "home",
+          component: () => import("@/views/HomeView.vue"),
+          meta: { topBarVariant: "home" },
+        },
+        {
+          path: "search",
+          name: "search",
+          component: () => import("@/views/SearchView.vue"),
+          meta: { topBarVariant: "search" },
+        },
+        {
+          path: "upload",
+          name: "upload",
+          component: () => import("@/views/UploadView.vue"),
+          meta: { topBarVariant: "upload" },
+        },
+        {
+          path: "activity",
+          name: "activity",
+          component: () => import("@/views/ActivityView.vue"),
+          meta: { topBarVariant: "activity", hasBadge: true },
+        },
+        {
+          path: "profile/:id?",
+          name: "profile",
+          component: () => import("@/views/ProfileView.vue"),
+          meta: { topBarVariant: "profile" },
+        },
+      ],
+    },
+    {
+      path: "/upload",
+      component: () => import("@/layouts/UploadLayout.vue"),
+      children: [
+        {
+          path: "file",
+          name: "file-select",
+          component: () =>
+            import("@/views/Upload/file-select/FileSelectView.vue"),
+          meta: { topBarVariant: "file", bottomBarVariant: "file" },
+        },
+        {
+          path: "filter",
+          name: "filter-select",
+          component: () =>
+            import("@/views/Upload/filter-select/FilterSelectView.vue"),
+          meta: { topBarVariant: "filter", bottomBarVariant: "filter" },
+        },
+        {
+          path: "post",
+          name: "post-editor",
+          component: () =>
+            import("@/views/Upload/post-editor/PostEditorView.vue"),
+          meta: { topBarVariant: "post", bottomBarVariant: "post" },
+        },
+      ],
+      meta: { hideBottomBar: true, topBarVariant: "compose" },
+    },
+    //TODO:この以下は必要によって修正・追加する
+    {
+      path: "/dm",
+      component: () => import("@/layouts/DMLayout.vue"),
+      children: [
+        {
+          path: "",
+          name: "dm-list",
+          component: () => import("@/views/dm/List.vue"),
+        },
+        {
+          path: ":thread",
+          name: "dm-thread",
+          component: () => import("@/views/dm/Thread.vue"),
+        },
+      ],
+      meta: { hideBottomBar: true, topBarVariant: "dm" },
+    },
+    // 스토리/포스트 뷰어는 모달 라우트로
+    {
+      path: "/p/:id",
+      name: "post-modal",
+      component: () => import("@/views/PostModal.vue"),
+      meta: { modal: true, hideBottomBar: true },
+    },
+    {
+      path: "/stories/:userId",
+      name: "story-view",
+      component: () => import("@/views/StoryView.vue"),
+      meta: { modal: true, hideBottomBar: true },
+    },
+  ],
 });
 
 export default router;
